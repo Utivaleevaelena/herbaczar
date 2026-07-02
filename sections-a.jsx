@@ -115,8 +115,6 @@ function Header({ t, lang, setLang, transparent, openForm }) {
           </a>
           <nav className="nav-primary">
             <a href="#experience" className="nav-link" onClick={linkClick('experience')}>{t.nav.experience}</a>
-            <a href="#segments" className="nav-link" onClick={linkClick('segments')}>{t.nav.segments}</a>
-            <a href="#private-label" className="nav-link" onClick={linkClick('private-label')}>{t.nav.private_label}</a>
             <a href="#faq" className="nav-link" onClick={linkClick('faq')}>{t.nav.faq}</a>
           </nav>
           <div className="header-actions">
@@ -153,8 +151,6 @@ function Header({ t, lang, setLang, transparent, openForm }) {
       </header>
       <div className={`mobile-nav ${open ? 'open' : ''}`}>
         <a href="#experience" onClick={linkClick('experience')}>{t.nav.experience}</a>
-        <a href="#segments" onClick={linkClick('segments')}>{t.nav.segments}</a>
-        <a href="#private-label" onClick={linkClick('private-label')}>{t.nav.private_label}</a>
         <a href="#faq" onClick={linkClick('faq')}>{t.nav.faq}</a>
         <button
           className="btn btn-primary"
@@ -192,7 +188,7 @@ function Hero({ t, openForm }) {
               {t.hero.cta_primary} <span className="btn-arrow"></span>
             </button>
             <button className="btn btn-secondary on-dark" onClick={() => {
-              const el = document.getElementById('segments');
+              const el = document.getElementById('collection');
               if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
             }}>
               <span>{t.hero.cta_secondary}</span>

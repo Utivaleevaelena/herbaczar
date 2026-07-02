@@ -113,14 +113,13 @@ function App() {
     <>
       <Header t={t} lang={lang} setLang={setLang} openForm={openForm} transparent={true} />
       <Hero t={t} openForm={openForm} />
+      <Products t={t} openForm={openForm} />
       {tweaks.showMarquee && <Marquee t={t} />}
       <SpecBand t={t} />
       <Emotion t={t} />
       <Experience t={t} />
-      <Segments t={t} openForm={openForm} />
       <How t={t} />
       {tweaks.showVideoSection && <VideoExperience t={t} />}
-      <PrivateLabel t={t} />
       <Benefits t={t} />
       <LeadForm
         t={t}

@@ -2,14 +2,22 @@
 
 // ──────────────── VIDEO EXPERIENCE ────────────────
 function VideoExperience({ t }) {
-  // Map tile sizes — 4 tiles total: 1 wide hero, 1 tall portrait, 2 square
-  const sizes = ['wide', 'tall', 'square', 'square'];
   const srcs = [
     'videos/jak-dziala-bombka.mp4',
     'videos/herbaczar-tworzenie.mp4',
     'videos/herbaczar-hero.mp4',
-    null, // macro shot — still placeholder
+    'videos/herbaczar-macro.mp4',
   ];
+  const trackRef = useRef(null);
+
+  const scrollByCard = (dir) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector('.video-slide');
+    const amount = card ? card.getBoundingClientRect().width + 20 : track.clientWidth * 0.8;
+    track.scrollBy({ left: dir * amount, behavior: 'smooth' });
+  };
+
   return (
     <section className="video-exp" id="video" data-screen-label="06 Video">
       <div className="container">
@@ -20,13 +28,29 @@ function VideoExperience({ t }) {
           </h2>
           <p className="body-lg">{t.video.sub}</p>
         </div>
-        <div className="video-grid">
+      </div>
+      <div className="video-carousel">
+        <button
+          className="carousel-arrow prev"
+          aria-label="Previous"
+          onClick={() => scrollByCard(-1)}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>
+        <div className="video-track" ref={trackRef}>
           {t.video.tiles.map((v, i) => (
-            <div className={`video-tile ${sizes[i]}`} key={i}>
+            <div className="video-slide" key={i}>
               <VideoPlaceholder title={v.title} file={v.file} duration={v.duration} src={srcs[i]} />
             </div>
           ))}
         </div>
+        <button
+          className="carousel-arrow next"
+          aria-label="Next"
+          onClick={() => scrollByCard(1)}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>
       </div>
     </section>
   );
@@ -96,18 +120,58 @@ function Benefits({ t }) {
 // ──────────────── LEAD FORM ────────────────
 function LeadForm({ t, formState, setFormState, intent, setIntent }) {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
   const f = t.lead.fields;
 
   const onChange = (key) => (e) => {
     setFormState({ ...formState, [key]: e.target.value });
   };
 
-  const submit = (e) => {
+  const buildPayload = () => ({
+    _subject: `HERBACZAR — nowe zgłoszenie B2B (${intent === 'presentation' ? 'Prezentacja' : 'Próbka'})`,
+    'Cel kontaktu': intent === 'presentation' ? (f.intent_presentation || 'Presentation') : (f.intent_sample || 'Sample'),
+    'Imię i nazwisko': formState.name || '',
+    'Firma': formState.company || '',
+    'Rodzaj działalności': formState.type || '',
+    'Kraj / Miasto': formState.location || '',
+    'Email': formState.email || '',
+    'Telefon': formState.phone || '',
+    'Strona / Instagram': formState.web || '',
+    'Szacowany wolumen': formState.volume || '',
+    'Wiadomość': formState.message || '',
+  });
+
+  const mailtoFallback = (data) => {
+    const body = Object.entries(data)
+      .filter(([k]) => k !== '_subject')
+      .map(([k, v]) => `${k}: ${v}`)
+      .join('\n');
+    const href = `mailto:herbaczar8@gmail.com?subject=${encodeURIComponent(data._subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = href;
+  };
+
+  const submit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    // Scroll up slightly to show success
-    const el = document.getElementById('lead');
-    if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+    if (sending) return;
+    const data = buildPayload();
+    setSending(true);
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/herbaczar8@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error('bad status');
+      setSubmitted(true);
+    } catch (err) {
+      // No backend reachable (e.g. preview sandbox) — hand off to the mail client
+      mailtoFallback(data);
+      setSubmitted(true);
+    } finally {
+      setSending(false);
+      const el = document.getElementById('lead');
+      if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -248,8 +312,8 @@ function LeadForm({ t, formState, setFormState, intent, setIntent }) {
                 </label>
 
                 <div className="form-submit">
-                  <button type="submit" className="btn btn-primary">
-                    {t.lead.submit}
+                  <button type="submit" className="btn btn-primary" disabled={sending}>
+                    {sending ? '…' : t.lead.submit}
                   </button>
                 </div>
               </form>
@@ -353,7 +417,7 @@ function Footer({ t, lang, setLang }) {
           <div className="footer-col">
             <h5>{t.footer.business_h}</h5>
             <ul>
-              {t.footer.business.map((b, i) => <li key={i}><a href="#segments">{b}</a></li>)}
+              {t.footer.business.map((b, i) => <li key={i}><a href="#collection">{b}</a></li>)}
             </ul>
           </div>
           <div className="footer-col">
