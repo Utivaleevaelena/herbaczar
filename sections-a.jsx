@@ -65,7 +65,6 @@ function VideoPlaceholder({ title, duration, file, src }) {
         />
         <div className="pl-label" style={{ color: 'rgba(245,239,230,0.85)' }}>
           <span>{title}</span>
-          <span className="filename">{file} · {duration}</span>
         </div>
       </>
     );
@@ -77,7 +76,6 @@ function VideoPlaceholder({ title, duration, file, src }) {
       </div>
       <div className="pl-label">
         <span>{title}</span>
-        <span className="filename">{file} · {duration}</span>
       </div>
     </div>
   );

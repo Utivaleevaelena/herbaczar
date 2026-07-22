@@ -74,7 +74,7 @@ const HEADLINE_FONTS = {
 
 function App() {
   const [lang, setLang] = useState_(() => {
-    try { return localStorage.getItem('herb_lang') || 'en'; } catch (e) { return 'en'; }
+    try { return localStorage.getItem('herb_lang') || 'pl'; } catch (e) { return 'pl'; }
   });
   const [formState, setFormState] = useState_({});
   const [intent, setIntent] = useState_('sample');
@@ -113,13 +113,13 @@ function App() {
     <>
       <Header t={t} lang={lang} setLang={setLang} openForm={openForm} transparent={true} />
       <Hero t={t} openForm={openForm} />
+      {tweaks.showVideoSection && <VideoExperience t={t} />}
       <Products t={t} openForm={openForm} />
       {tweaks.showMarquee && <Marquee t={t} />}
       <SpecBand t={t} />
       <Emotion t={t} />
       <Experience t={t} />
       <How t={t} />
-      {tweaks.showVideoSection && <VideoExperience t={t} />}
       <Benefits t={t} />
       <LeadForm
         t={t}

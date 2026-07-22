@@ -45,31 +45,31 @@ window.TRANSLATIONS = {
       items: [
         {
           img: "images/prod-ananas-imbir.png",
-          name: "Ananas & Imbir", subtitle: "Pineapple & Ginger",
+          name: "Pineapple & Ginger", subtitle: "Ananas & Imbir",
           desc: "An exceptional pairing of sweet pineapple and the expressive note of ginger. Tropical freshness, subtle energy and elegance sealed inside a single tea sphere.",
           sklad: "Isomalt, Sencha, pineapple pieces, ginger pieces, pineapple aroma.",
         },
         {
           img: "images/prod-nalewka-babuni.png",
-          name: "Nalewka Babuni", subtitle: "Grandmother’s Cordial",
+          name: "Grandmother’s Cordial", subtitle: "Nalewka Babuni",
           desc: "A noble blend of apple, raisins and cherry with a note of wild rose and hibiscus. A deep, enveloping taste inspired by the warmth of home tradition.",
           sklad: "Isomalt, freeze-dried apple, raisins, cherries, wild rose, hibiscus, aroma.",
         },
         {
           img: "images/prod-tropikalna-pokusa.png",
-          name: "Tropikalna Pokusa", subtitle: "Tropical Temptation",
+          name: "Tropical Temptation", subtitle: "Tropikalna Pokusa",
           desc: "An exotic blend of hibiscus, apple and papaya with notes of elderberry, currant and red fruits. Juicy freshness, floral lightness and tropical elegance in one sphere.",
           sklad: "Isomalt, hibiscus, apple, papaya, elderberry, blackcurrant, freeze-dried raspberries, strawberries, sunflower petals, cornflower petals.",
         },
         {
           img: "images/prod-korzenna-harmonia.png",
-          name: "Korzenna Harmonia", subtitle: "Spiced Harmony",
+          name: "Spiced Harmony", subtitle: "Korzenna Harmonia",
           desc: "An enveloping blend of black tea, orange and ginger with notes of cardamom, cloves and cinnamon. A deep, spiced taste that wraps you in warmth and sets a special mood.",
           sklad: "Isomalt, black tea, orange peel, cardamom, cloves, cinnamon, ginger pieces, sugar snowflakes, aroma.",
         },
         {
           img: "images/prod-podarunek-milosci.png",
-          name: "Podarunek Miłości", subtitle: "A Gift of Love",
+          name: "A Gift of Love", subtitle: "Podarunek Miłości",
           desc: "A sensual blend of fruits and hibiscus with a note of sweetness and delicate freshness. A unique taste created to give a loved one a moment of warmth, joy and love.",
           sklad: "Isomalt, elderberry, raisins, apple, raspberry, strawberries, freeze-dried red currants, papaya and pineapple pieces, hibiscus.",
         },
